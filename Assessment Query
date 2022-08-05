@@ -1,0 +1,22 @@
+--Q1
+/* QUESTION 1.
+Display the customer names that share the same address (e.g. Husband and Wife) */
+SELECT c1.first_name, c1.last_name, c2.first_name, c2.last_name
+FROM customer AS c1
+      JOIN customer AS c2
+      ON c1.customer_id != c2.customer_id 
+      AND c1.address_id= c2.address_id;
+
+--Q2
+/* QUESTION 2.
+What is the name of the customer who made the highest total payments*/
+SELECT CONCAT (c.first_name, ' ', c.last_name) AS customer_name, SUM (p.amount) AS total_payment
+FROM customer as c
+                 JOIN payment as p
+                 ON c.customer_id = p.customer_id
+                 GROUP BY c.first_name, c.last_name
+                 ORDER BY total_payment DESC
+                 LIMIT 1;
+
+
+
